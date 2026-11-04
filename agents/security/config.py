@@ -78,6 +78,7 @@ class AgentConfig(BaseSettings):
     llm_base_url: str | None = None
     llm_temperature: float = 0.2
     llm_timeout_seconds: int = 60
+    task_timeout_seconds: int = 300
     llm_max_retries: int = 2
 
     # Thư mục cô lập cho từng Agent (tính theo thư mục agent)

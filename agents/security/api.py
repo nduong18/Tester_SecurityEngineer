@@ -190,11 +190,9 @@ async def execute_task(request: TaskRequest, token: str = Depends(verify_bearer_
         )
 
     # 3. Thực thi task an toàn trong lock và áp dụng timeout
-    timeout_sec = (
-        request.constraints.timeout_seconds
-        if request.constraints and request.constraints.timeout_seconds > 0
-        else config.llm_timeout_seconds
-    )
+    # Không bao giờ thấp hơn TASK_TIMEOUT_SECONDS; ghi lại vào request để timeout pytest/bandit bên trong dùng cùng giá trị
+    timeout_sec = max(request.constraints.timeout_seconds, config.task_timeout_seconds)
+    request.constraints.timeout_seconds = timeout_sec
 
     async with task_lock:
         # Kiểm tra lại cache lần nữa phòng trường hợp race condition
