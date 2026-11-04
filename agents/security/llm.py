@@ -91,6 +91,8 @@ class LLMClient:
                 messages=messages,  # type: ignore[arg-type]
                 temperature=self.config.llm_temperature,
                 timeout=float(self.config.llm_timeout_seconds),
+                # Chỉ gửi khi được cấu hình: provider không hỗ trợ có thể từ chối tham số lạ
+                **({"reasoning_effort": self.config.llm_reasoning_effort} if self.config.llm_reasoning_effort else {}),
             )
             choice = response.choices[0]
             content = choice.message.content

@@ -80,6 +80,7 @@ class AgentConfig(BaseSettings):
     llm_timeout_seconds: int = 60
     task_timeout_seconds: int = 300
     llm_max_retries: int = 2
+    llm_reasoning_effort: str = ""  # low | medium | high (để trống = mặc định của model)
 
     # Thư mục cô lập cho từng Agent (tính theo thư mục agent)
     artifact_dir: str = "./artifacts"
