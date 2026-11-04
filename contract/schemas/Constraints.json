@@ -1,0 +1,42 @@
+{
+  "$defs": {
+    "Priority": {
+      "description": "Mức độ ưu tiên của Task.",
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ],
+      "title": "Priority",
+      "type": "string"
+    }
+  },
+  "description": "Các ràng buộc về thời hạn, ưu tiên và timeout của tác vụ.",
+  "properties": {
+    "deadline": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Deadline"
+    },
+    "priority": {
+      "$ref": "#/$defs/Priority",
+      "default": "MEDIUM"
+    },
+    "timeout_seconds": {
+      "default": 300,
+      "title": "Timeout Seconds",
+      "type": "integer"
+    }
+  },
+  "title": "Constraints",
+  "type": "object"
+}

@@ -1,0 +1,7 @@
+# Thư mục dữ liệu và workspace riêng của agent
+workspace/
+data/
+artifacts/
+.env
+__pycache__/
+*.pyc

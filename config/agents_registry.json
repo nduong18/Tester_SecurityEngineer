@@ -1,0 +1,282 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "description": "Cấu hình chuẩn 10 AI Agent độc lập trong hệ thống ai-team theo Agent Contract v1.0",
+  "global_settings": {
+    "contract_version": "1.0.0",
+    "contract_min_version": "1.0.0",
+    "host": "0.0.0.0",
+    "python_version": ">=3.11",
+    "llm_provider": "gemini",
+    "llm_model": "gemini-3.6-flash",
+    "llm_base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
+    "llm_temperature": 0.2,
+    "llm_timeout_seconds": 60,
+    "llm_max_retries": 2,
+    "dry_run": true,
+    "artifact_dir": "./artifacts",
+    "workspace_dir": "./workspace"
+  },
+  "dependencies": {
+    "agent-contract": "1.0.0",
+    "fastapi": "0.162.0",
+    "uvicorn": "0.54.0",
+    "pydantic": "2.14.2",
+    "pydantic-settings": "2.16.2",
+    "python-dotenv": "1.2.4",
+    "openai": "3.42.1",
+    "httpx": "0.28.1",
+    "pytest": "9.1.1",
+    "pyyaml": "6.0.3"
+  },
+  "machines": {
+    "1": {
+      "name": "Máy 1 (Lead / Điều phối)",
+      "agents": ["pm-01", "devops-01"]
+    },
+    "2": {
+      "name": "Máy 2 (Phân tích & Kiến trúc)",
+      "agents": ["ba-01", "sa-01"]
+    },
+    "3": {
+      "name": "Máy 3 (Sản phẩm & Phát triển)",
+      "agents": ["po-01", "dev-01"]
+    },
+    "4": {
+      "name": "Máy 4 (Kiểm thử & Dữ liệu)",
+      "agents": ["tester-01", "dba-01"]
+    },
+    "5": {
+      "name": "Máy 5 (Vận hành Scrum & An ninh)",
+      "agents": ["scrum_master-01", "security-01"]
+    }
+  },
+  "agents": {
+    "pm": {
+      "agent_id": "pm-01",
+      "role": "PM",
+      "machine": 1,
+      "port": 8001,
+      "host": "0.0.0.0",
+      "capabilities": [
+        "project_planning",
+        "task_decomposition",
+        "task_assignment",
+        "progress_tracking"
+      ],
+      "actions": {
+        "analyze_requirement": "project_planning",
+        "create_plan": "project_planning",
+        "decompose_tasks": "task_decomposition",
+        "assign_tasks": "task_assignment",
+        "track_progress": "progress_tracking",
+        "report_status": "progress_tracking"
+      },
+      "allowed_commands": "python,pytest",
+      "primary_artifacts": ["plan.md", "tasks.json", "status-report.md"],
+      "description": "Quản lý dự án, lập kế hoạch milestone/sprint, phân rã công việc WBS"
+    },
+    "devops": {
+      "agent_id": "devops-01",
+      "role": "DEVOPS",
+      "machine": 1,
+      "port": 8002,
+      "host": "0.0.0.0",
+      "capabilities": [
+        "git",
+        "docker",
+        "ci_cd",
+        "deployment",
+        "monitoring",
+        "health_check"
+      ],
+      "actions": {
+        "git_operation": "git",
+        "build_image": "docker",
+        "generate_ci_config": "ci_cd",
+        "run_tests": "ci_cd",
+        "deploy": "deployment",
+        "health_check": "health_check",
+        "setup_monitoring": "monitoring"
+      },
+      "allowed_commands": "git,docker,pytest,python,curl",
+      "primary_artifacts": ["ci.yml", "deployment-report.md", "health-check.json"],
+      "description": "Tự động hóa CI/CD, đóng gói Docker container, triển khai và giám sát hạ tầng"
+    },
+    "ba": {
+      "agent_id": "ba-01",
+      "role": "BA",
+      "machine": 2,
+      "port": 8003,
+      "host": "0.0.0.0",
+      "capabilities": [
+        "requirement_analysis",
+        "user_story",
+        "use_case",
+        "acceptance_criteria"
+      ],
+      "actions": {
+        "analyze_requirement": "requirement_analysis",
+        "write_user_stories": "user_story",
+        "define_use_cases": "use_case",
+        "create_acceptance_criteria": "acceptance_criteria"
+      },
+      "allowed_commands": "python,pytest",
+      "primary_artifacts": ["requirements.md", "user-stories.json"],
+      "description": "Phân tích yêu cầu nghiệp vụ, viết User Story và Acceptance Criteria chi tiết"
+    },
+    "sa": {
+      "agent_id": "sa-01",
+      "role": "SA",
+      "machine": 2,
+      "port": 8004,
+      "host": "0.0.0.0",
+      "capabilities": [
+        "system_architecture",
+        "api_design",
+        "technology_selection"
+      ],
+      "actions": {
+        "design_architecture": "system_architecture",
+        "design_api": "api_design",
+        "select_tech_stack": "technology_selection",
+        "review_architecture": "system_architecture"
+      },
+      "allowed_commands": "python,pytest",
+      "primary_artifacts": ["architecture.md", "api-spec.yaml"],
+      "description": "Thiết kế kiến trúc hệ thống, lựa chọn công nghệ, thiết kế API specifications"
+    },
+    "po": {
+      "agent_id": "po-01",
+      "role": "PO",
+      "machine": 3,
+      "port": 8005,
+      "host": "0.0.0.0",
+      "capabilities": [
+        "product_vision",
+        "feature_prioritization",
+        "backlog_management",
+        "acceptance"
+      ],
+      "actions": {
+        "define_vision": "product_vision",
+        "prioritize_features": "feature_prioritization",
+        "manage_backlog": "backlog_management",
+        "accept_deliverable": "acceptance"
+      },
+      "allowed_commands": "python,pytest",
+      "primary_artifacts": ["product-vision.md", "prioritized-backlog.json"],
+      "description": "Định hình tầm nhìn sản phẩm, quản lý độ ưu tiên backlog, nghiệm thu tính năng"
+    },
+    "dev": {
+      "agent_id": "dev-01",
+      "role": "DEV",
+      "machine": 3,
+      "port": 8006,
+      "host": "0.0.0.0",
+      "capabilities": [
+        "coding",
+        "refactoring",
+        "bug_fixing",
+        "code_review"
+      ],
+      "actions": {
+        "write_code": "coding",
+        "refactor_code": "refactoring",
+        "fix_bug": "bug_fixing",
+        "review_code": "code_review"
+      },
+      "allowed_commands": "git,python,pytest,npm,mvn",
+      "primary_artifacts": ["code-diff.patch", "review-comments.md"],
+      "description": "Lập trình hiện thực hóa tính năng, refactor mã nguồn, sửa lỗi và review code"
+    },
+    "tester": {
+      "agent_id": "tester-01",
+      "role": "TESTER",
+      "machine": 4,
+      "port": 8007,
+      "host": "0.0.0.0",
+      "capabilities": [
+        "test_planning",
+        "test_case_generation",
+        "automated_testing",
+        "bug_reporting"
+      ],
+      "actions": {
+        "create_test_plan": "test_planning",
+        "generate_test_cases": "test_case_generation",
+        "run_tests": "automated_testing",
+        "report_bug": "bug_reporting"
+      },
+      "allowed_commands": "python,pytest,curl",
+      "primary_artifacts": ["test-plan.md", "test-cases.json", "bug-report.md"],
+      "description": "Lập kế hoạch kiểm thử, sinh test case tự động, chạy test và báo cáo bug"
+    },
+    "dba": {
+      "agent_id": "dba-01",
+      "role": "DBA",
+      "machine": 4,
+      "port": 8008,
+      "host": "0.0.0.0",
+      "capabilities": [
+        "database_design",
+        "schema_design",
+        "sql",
+        "query_optimization"
+      ],
+      "actions": {
+        "design_database": "database_design",
+        "generate_schema": "schema_design",
+        "write_migration": "sql",
+        "optimize_query": "query_optimization"
+      },
+      "allowed_commands": "python,pytest",
+      "primary_artifacts": ["schema.sql", "migration.sql", "db-design.md"],
+      "description": "Thiết kế cơ sở dữ liệu, schema quan hệ, tối ưu câu truy vấn SQL"
+    },
+    "scrum_master": {
+      "agent_id": "scrum_master-01",
+      "role": "SCRUM_MASTER",
+      "machine": 5,
+      "port": 8009,
+      "host": "0.0.0.0",
+      "capabilities": [
+        "sprint_management",
+        "scrum_management",
+        "blocker_tracking",
+        "retrospective"
+      ],
+      "actions": {
+        "plan_sprint": "sprint_management",
+        "track_blockers": "blocker_tracking",
+        "facilitate_standup": "scrum_management",
+        "run_retrospective": "retrospective"
+      },
+      "allowed_commands": "python,pytest",
+      "primary_artifacts": ["sprint-summary.md", "blockers.json", "retrospective.md"],
+      "description": "Điều phối quy trình Scrum, theo dõi điểm nghẽn (blocker), tổ chức retrospective"
+    },
+    "security": {
+      "agent_id": "security-01",
+      "role": "SECURITY",
+      "machine": 5,
+      "port": 8010,
+      "host": "0.0.0.0",
+      "capabilities": [
+        "security_analysis",
+        "vulnerability_scan",
+        "dependency_scan",
+        "security_review"
+      ],
+      "actions": {
+        "analyze_security": "security_analysis",
+        "scan_vulnerabilities": "vulnerability_scan",
+        "audit_dependencies": "dependency_scan",
+        "review_security": "security_review"
+      },
+      "allowed_commands": "git,python,pytest,bandit,pip-audit",
+      "primary_artifacts": ["security-report.md", "vulnerability-audit.json"],
+      "description": "Đánh giá an toàn thông tin, quét lỗ hổng OWASP, kiểm tra bảo mật phụ thuộc"
+    }
+  }
+}

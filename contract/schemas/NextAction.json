@@ -1,0 +1,42 @@
+{
+  "$defs": {
+    "AgentRole": {
+      "description": "Vai trò của Agent trong đội ngũ phát triển phần mềm.",
+      "enum": [
+        "PM",
+        "SA",
+        "BA",
+        "PO",
+        "DEV",
+        "TESTER",
+        "DEVOPS",
+        "DBA",
+        "SCRUM_MASTER",
+        "SECURITY"
+      ],
+      "title": "AgentRole",
+      "type": "string"
+    }
+  },
+  "description": "Hành động đề xuất tiếp theo (gợi ý cho Orchestrator, không gọi trực tiếp).",
+  "properties": {
+    "suggested_role": {
+      "$ref": "#/$defs/AgentRole"
+    },
+    "action": {
+      "title": "Action",
+      "type": "string"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "suggested_role",
+    "action",
+    "reason"
+  ],
+  "title": "NextAction",
+  "type": "object"
+}

@@ -1,0 +1,78 @@
+{
+  "$defs": {
+    "ArtifactType": {
+      "description": "Loại Artifact được tạo hoặc chuyển giao giữa các Agent.",
+      "enum": [
+        "REQUIREMENT",
+        "USER_STORY",
+        "ARCHITECTURE",
+        "DATABASE_SCHEMA",
+        "SOURCE_CODE",
+        "TEST_CASE",
+        "TEST_REPORT",
+        "SECURITY_REPORT",
+        "DEPLOYMENT",
+        "DOCUMENTATION",
+        "PLAN",
+        "BACKLOG",
+        "OTHER"
+      ],
+      "title": "ArtifactType",
+      "type": "string"
+    }
+  },
+  "description": "Tham chiếu siêu dữ liệu tới một Artifact trong hệ thống.",
+  "properties": {
+    "artifact_id": {
+      "title": "Artifact Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "type": {
+      "$ref": "#/$defs/ArtifactType"
+    },
+    "version": {
+      "default": "1.0",
+      "title": "Version",
+      "type": "string"
+    },
+    "uri": {
+      "title": "Uri",
+      "type": "string"
+    },
+    "created_by": {
+      "title": "Created By",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "checksum": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Checksum"
+    }
+  },
+  "required": [
+    "artifact_id",
+    "name",
+    "type",
+    "uri",
+    "created_by",
+    "created_at"
+  ],
+  "title": "ArtifactRef",
+  "type": "object"
+}

@@ -1,0 +1,15 @@
+{
+  "contract_version": "1.1.0",
+  "task_id": "TASK-TESTER-002",
+  "project_id": "PROJECT-SAMPLE",
+  "agent_id": "tester-01",
+  "role": "TESTER",
+  "action": "run_test_suite",
+  "instruction": "Chạy automated test suite trên mã nguồn và xuất báo cáo verdict",
+  "context": {},
+  "input_artifacts": [
+    {"artifact_id": "ART-001", "name": "source.zip", "type": "SOURCE_CODE", "version": "1.0",
+     "uri": "artifacts/source.zip", "created_by": "dev-01", "created_at": "2026-11-04T00:00:00Z"}
+  ],
+  "constraints": {"priority": "HIGH", "timeout_seconds": 120}
+}

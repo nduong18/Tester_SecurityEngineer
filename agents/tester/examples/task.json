@@ -1,0 +1,12 @@
+{
+  "contract_version": "1.1.0",
+  "task_id": "TASK-TESTER-001",
+  "project_id": "PROJECT-SAMPLE",
+  "agent_id": "tester-01",
+  "role": "TESTER",
+  "action": "create_test_cases",
+  "instruction": "Xây dựng test case cho chức năng đăng nhập:\n- Given email và mật khẩu đúng, người dùng đăng nhập thành công\n- Sai mật khẩu 5 lần thì khoá tài khoản 15 phút",
+  "context": {},
+  "input_artifacts": [],
+  "constraints": {"priority": "MEDIUM", "timeout_seconds": 60}
+}

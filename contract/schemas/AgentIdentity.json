@@ -1,0 +1,78 @@
+{
+  "$defs": {
+    "AgentRole": {
+      "description": "Vai trò của Agent trong đội ngũ phát triển phần mềm.",
+      "enum": [
+        "PM",
+        "SA",
+        "BA",
+        "PO",
+        "DEV",
+        "TESTER",
+        "DEVOPS",
+        "DBA",
+        "SCRUM_MASTER",
+        "SECURITY"
+      ],
+      "title": "AgentRole",
+      "type": "string"
+    },
+    "AgentStatus": {
+      "description": "Trạng thái hoạt động của Agent.",
+      "enum": [
+        "OFFLINE",
+        "IDLE",
+        "RUNNING",
+        "WAITING",
+        "COMPLETED",
+        "FAILED",
+        "BLOCKED"
+      ],
+      "title": "AgentStatus",
+      "type": "string"
+    }
+  },
+  "description": "Thông tin nhận diện và năng lực tự khai báo của Agent.",
+  "properties": {
+    "contract_version": {
+      "default": "1.0.0",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "agent_id": {
+      "title": "Agent Id",
+      "type": "string"
+    },
+    "role": {
+      "$ref": "#/$defs/AgentRole"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "version": {
+      "title": "Version",
+      "type": "string"
+    },
+    "capabilities": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Capabilities",
+      "type": "array"
+    },
+    "status": {
+      "$ref": "#/$defs/AgentStatus",
+      "default": "IDLE"
+    }
+  },
+  "required": [
+    "agent_id",
+    "role",
+    "name",
+    "version",
+    "capabilities"
+  ],
+  "title": "AgentIdentity",
+  "type": "object"
+}

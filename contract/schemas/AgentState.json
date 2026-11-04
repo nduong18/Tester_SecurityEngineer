@@ -1,0 +1,73 @@
+{
+  "$defs": {
+    "AgentRole": {
+      "description": "Vai trò của Agent trong đội ngũ phát triển phần mềm.",
+      "enum": [
+        "PM",
+        "SA",
+        "BA",
+        "PO",
+        "DEV",
+        "TESTER",
+        "DEVOPS",
+        "DBA",
+        "SCRUM_MASTER",
+        "SECURITY"
+      ],
+      "title": "AgentRole",
+      "type": "string"
+    },
+    "AgentStatus": {
+      "description": "Trạng thái hoạt động của Agent.",
+      "enum": [
+        "OFFLINE",
+        "IDLE",
+        "RUNNING",
+        "WAITING",
+        "COMPLETED",
+        "FAILED",
+        "BLOCKED"
+      ],
+      "title": "AgentStatus",
+      "type": "string"
+    }
+  },
+  "description": "Trạng thái hiện thời của Agent phục vụ giám sát và Dashboard.",
+  "properties": {
+    "agent_id": {
+      "title": "Agent Id",
+      "type": "string"
+    },
+    "role": {
+      "$ref": "#/$defs/AgentRole"
+    },
+    "status": {
+      "$ref": "#/$defs/AgentStatus"
+    },
+    "current_task": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Current Task"
+    },
+    "updated_at": {
+      "format": "date-time",
+      "title": "Updated At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "agent_id",
+    "role",
+    "status",
+    "updated_at"
+  ],
+  "title": "AgentState",
+  "type": "object"
+}

@@ -1,0 +1,7 @@
+agents:
+  - name: tester
+    path: agents/tester
+    port: 8007
+  - name: security
+    path: agents/security
+    port: 8010

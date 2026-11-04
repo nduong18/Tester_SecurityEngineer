@@ -1,0 +1,46 @@
+{
+  "$defs": {
+    "ErrorCode": {
+      "description": "Mã định danh lỗi chuẩn trong hệ thống.",
+      "enum": [
+        "INVALID_INPUT",
+        "MISSING_CONTEXT",
+        "LLM_ERROR",
+        "TOOL_ERROR",
+        "TIMEOUT",
+        "PERMISSION_DENIED",
+        "ARTIFACT_ERROR",
+        "VALIDATION_ERROR",
+        "UNKNOWN_ERROR"
+      ],
+      "title": "ErrorCode",
+      "type": "string"
+    }
+  },
+  "description": "Cấu trúc mô tả lỗi tiêu chuẩn trả về từ Agent.",
+  "properties": {
+    "code": {
+      "$ref": "#/$defs/ErrorCode"
+    },
+    "message": {
+      "title": "Message",
+      "type": "string"
+    },
+    "retryable": {
+      "title": "Retryable",
+      "type": "boolean"
+    },
+    "details": {
+      "additionalProperties": true,
+      "title": "Details",
+      "type": "object"
+    }
+  },
+  "required": [
+    "code",
+    "message",
+    "retryable"
+  ],
+  "title": "AgentError",
+  "type": "object"
+}
